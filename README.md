@@ -4,14 +4,30 @@ Plays memes whenever someone rings the doorbell !
 
 # How
 
-Using python, a raspberry pi intercepts the transmition from a doorbell 
-and will play a sound through a BLE (Bluetooth Low Energy) Speaker.
+A raspberry pi intercepts the reciever signal from a doorbell transmission
+and, using python, will play a sound through a BLE (Bluetooth Low Energy) Speaker.
+
+# Components
+
+- BLE Speaker: specifically Ultimate Ears Boom3 (~200AUD)
+- Doorbell: HPM Wireless Doorbell Kit model D642/01 (~10AUD)
+- Raspberry Pi: model 3B+ with 5V charger and noobs (~100AUD)
+- Electrical components: (~10AUD)
+  - 3 gpio leads (one end must be female)
+  - 3 alligator clips (preferably with insulators)
+
+Total cost is ~320AUD
+
+Luckily I have a boom3 and pi so this project cost me $20
 
 # Wiring Pics
 Picture below shows the wiring of the pi to the reciever
-![](https://github.com/DevonTomatoSandwich/Pi-Doorbell/blob/master/readme_pics/photo_wiring.jpg)
+
+![link1](readme_pics/photo_wiring.jpg)
+
 Main components can be shown in the below schematic 
-![](https://github.com/DevonTomatoSandwich/Pi-Doorbell/blob/master/readme_pics/schematic.png)
+
+![link2](readme_pics/schematic.png)
 
 ## Method 
 
