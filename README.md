@@ -7,6 +7,12 @@ Plays memes whenever someone rings the doorbell !
 Using python, a raspberry pi intercepts the transmition from a doorbell 
 and will play a sound through a BLE (Bluetooth Low Energy) Speaker.
 
+# Wiring Pics
+Picture below shows the wiring of the pi to the reciever
+![](https://github.com/DevonTomatoSandwich/Pi-Doorbell/blob/master/readme_pics/photo_wiring.jpg)
+Main components can be shown in the below schematic 
+![](https://github.com/DevonTomatoSandwich/Pi-Doorbell/blob/master/readme_pics/schematic.png)
+
 ## Method 
 
 When the doorbell button is pressed a signal is sent from the doorbell's transmitter to the doorbell's receiver. 
