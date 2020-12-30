@@ -76,7 +76,7 @@ The aim is to sniff the package sent to the boom to find its handle, value and d
 
 setup the wiring like in the above photo and schema.
 [this link](https://forum.core-electronics.com.au/t/433mhz-remote-control-by-hacking-a-wireless-doorbell-arduino-and-raspberry-pi/7799) has further instructions on how to wire the reciever and what the other pins do.
-The boom3 should be connected once manually and you can turn it off before running the script.
+The boom3 should be connected once manually and you can turn it off before running the script. Also when the doorbell is pressed the result is to play a tune from the doorbell's list of tunes then play the meme through the speaker. You can select a tune that is short (3 knock sound) so to not play over the meme. You can select different sounds by holding the small black button on the transmitter. 
 
 ## run
 
