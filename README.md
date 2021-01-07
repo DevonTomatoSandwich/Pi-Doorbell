@@ -2,10 +2,8 @@
 
 Plays memes whenever someone rings the doorbell !
 
-# How
-
-A raspberry pi intercepts the reciever signal from a doorbell transmission
-and, using python, will play a sound through a BLE (Bluetooth Low Energy) Speaker.
+A raspberry pi intercepts the receiver signal from a doorbell transmission
+and, using python, will play a greeting sound (a meme) through a BLE (Bluetooth Low Energy) Speaker.
 
 # Components
 
@@ -21,7 +19,7 @@ Total cost is ~320AUD
 Luckily I have a boom3 and pi so this project cost me $20
 
 # Wiring Pics
-Picture below shows the wiring of the pi to the reciever
+Picture below shows the wiring of the pi to the receiver
 
 ![link1](readme_pics/photo_wiring.jpg)
 
@@ -29,11 +27,11 @@ Main components can be shown in the below schematic
 
 ![link2](readme_pics/schematic.png)
 
-## Method 
+## How 
 
 When the doorbell button is pressed a signal is sent from the doorbell's transmitter to the doorbell's receiver. 
-The reciever has a signal pin that outputs voltage when the doorbell rings. By connecting the receiver's signal pin to 
-one of the raspberry pi's (3B+) GPIO pins, the pi can intercept the signal. 
+The receiver has a signal pin that outputs voltage when the doorbell rings. By connecting the receiver's signal pin to 
+one of the raspberry pi's GPIO pins, the pi can intercept the signal. 
 
 When this signal is detected the BLE speaker is turned on (if not already on) which is possible due to BLE. 
 Turning the speaker on is achieved by bluetooth snooping the params in the signal sent from the Boom app. 
@@ -54,9 +52,9 @@ The pi is powered by 5V from the wall, the reciever is powered by the 3V3 pin on
 
 `apt install bluealsa`
 
-- Download the repo as a zip.
+- Download this repo as a zip.
 
-- In the existing etc folder of the pi add the '.asoundrc' file found in the etc folder of the repo.
+- In the existing etc folder of the pi add the '.asoundrc' file found in the etc folder of this repo.
 - move 'doorbell.py' in whichever directory you like for example 'Desktop'
 - make sure the folder 'wavs' is in the same directory as 'doorbell.py'
 - (optional) add other wav files of your choosing ensuring to match the file names with the memes array at the top of 'doorbell.py'
@@ -75,12 +73,12 @@ The aim is to sniff the package sent to the boom to find its handle, value and d
 ## wiring
 
 setup the wiring like in the above photo and schema.
-[this link](https://forum.core-electronics.com.au/t/433mhz-remote-control-by-hacking-a-wireless-doorbell-arduino-and-raspberry-pi/7799) has further instructions on how to wire the reciever and what the other pins do.
+[this link](https://forum.core-electronics.com.au/t/433mhz-remote-control-by-hacking-a-wireless-doorbell-arduino-and-raspberry-pi/7799) has further instructions on how to wire the receiver and what the other receiver pins do.
 The boom3 should be connected once manually and you can turn it off before running the script. Also when the doorbell is pressed the result is to play a tune from the doorbell's list of tunes then play the meme through the speaker. You can select a tune that is short (3 knock sound) so to not play over the meme. You can select different sounds by holding the small black button on the transmitter. 
 
 ## run
 
-open the 'doorbell.py' script in thorny and run. Or use command
+open the 'doorbell.py' script in thonny and run. Or use command
 `python3 Desktop/doorbell.py`
 
 Then test by pushing the doorbell
@@ -88,10 +86,10 @@ Then test by pushing the doorbell
 stop the script with
 `pkill -9 -f Desktop/doorbell.py`
 
-# issues
+# Issues
  - Sometimes these errors occur:
   - `ALSA lib bluealsa-pcm.c:763:(_snd_pcm_bluealsa_open) Couldn't get BlueALSA PCM: PCM not found`
   - `connect: Device or resource busy (16)`
- - Wiring is ugly (lots of wires and clips). Placing the reciever on a breadboad would look better and reduce the chance of clips touching resulting in a short circuit.
+ - Wiring is ugly (lots of wires and clips). Placing the receiver on a breadboad would look better and reduce the chance of clips touching resulting in a short circuit.
  - Sometimes pi receives input randomly, possibly due to cross talk in wires.
  
