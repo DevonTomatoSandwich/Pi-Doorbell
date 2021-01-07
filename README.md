@@ -88,8 +88,8 @@ stop the script with
 
 # Issues
  - Sometimes these errors occur:
-  - `ALSA lib bluealsa-pcm.c:763:(_snd_pcm_bluealsa_open) Couldn't get BlueALSA PCM: PCM not found`
-  - `connect: Device or resource busy (16)`
+   - `ALSA lib bluealsa-pcm.c:763:(_snd_pcm_bluealsa_open) Couldn't get BlueALSA PCM: PCM not found`
+   - `connect: Device or resource busy (16)`
  - Wiring is ugly (lots of wires and clips). Placing the receiver on a breadboad would look better and reduce the chance of clips touching resulting in a short circuit.
  - Sometimes pi receives input randomly, possibly due to cross talk in wires.
  
