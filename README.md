@@ -87,9 +87,10 @@ stop the script with
 `pkill -9 -f Desktop/doorbell.py`
 
 # Issues
- - Sometimes these errors occur:
+- [ ] Sometimes (~20% of the time) these errors occur:
    - `ALSA lib bluealsa-pcm.c:763:(_snd_pcm_bluealsa_open) Couldn't get BlueALSA PCM: PCM not found`
    - `connect: Device or resource busy (16)`
- - Wiring is ugly (lots of wires and clips). Placing the receiver on a breadboad would look better and reduce the chance of clips touching resulting in a short circuit.
- - Sometimes pi receives input randomly, possibly due to cross talk in wires.
- 
+   
+   currently tring to find a solution to this.
+- [x] Wiring is ugly (lots of wires and clips). Placing the receiver on a breadboad would look better and reduce the chance of clips touching (or bad crimping) resulting in a short circuit. The problem with placing the reciever on the breadboard is that it loses its default bell that is provided with the doorbells circuit board. I would prefer to keep this incase the bluetooth component fails. Marking as complete for now
+- [x] Sometimes pi receives input randomly, ~~possibly due to cross talk in wires~~. I found out that this is not interference but fluctuation between high and low which is typical of an input pin even if using the pins internal pull down resistor setting. Seting up an external pull down resistor with R = 10kΩ grounds the state to 0V when there is no transmission recieved. 
