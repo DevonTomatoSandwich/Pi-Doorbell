@@ -10,22 +10,26 @@ and, using python, will play a greeting sound (a meme) through a BLE (Bluetooth 
 - BLE Speaker: specifically Ultimate Ears Boom3 (~200AUD)
 - Doorbell: HPM Wireless Doorbell Kit model D642/01 (~10AUD)
 - Raspberry Pi: model 3B+ with 5V charger and noobs (~100AUD)
-- Electrical components: (~10AUD)
-  - 3 gpio leads (one end must be female)
-  - 3 alligator clips (preferably with insulators)
+- Electrical components: (~15AUD)
+  - 5 gpio leads
+    - x1 alligator to male
+    - x2 alligator to female
+    - x2 female to male
+  - bread board
+  - resistor 10kΩ
 
-Total cost is ~320AUD
+Total cost is ~325AUD
 
-Luckily I have a boom3 and pi so this project cost me $20
+Luckily I have a boom3 and pi so this project cost me $25
 
 # Wiring Pics
 Picture below shows the wiring of the pi to the receiver
 
-![link1](readme_pics/photo_wiring.jpg)
+![link1](readme_pics/wiring_photo_v2.jpg)
 
 Main components can be shown in the below schematic 
 
-![link2](readme_pics/schematic.png)
+![link2](readme_pics/wiring_shematic_v2.png)
 
 ## How 
 
@@ -53,11 +57,16 @@ The pi is powered by 5V from the wall, the reciever is powered by the 3V3 pin on
 `apt install bluealsa`
 
 - Download this repo as a zip.
-
 - In the existing etc folder of the pi add the '.asoundrc' file found in the etc folder of this repo.
-- move 'doorbell.py' in whichever directory you like for example 'Desktop'
-- make sure the folder 'wavs' is in the same directory as 'doorbell.py'
-- (optional) add other wav files of your choosing ensuring to match the file names with the memes array at the top of 'doorbell.py'
+- In the existing /home/pi folder of the pi insert the 'doorbell' folder found in the repo.
+- (optional) add other wav files of your choosing ensuring to match the file names with the memes array at the top of 'doorbell.py'.
+- make the script run on boot by following [this link](https://learn.sparkfun.com/tutorials/how-to-run-a-raspberry-pi-program-on-startup/all) specifically method 1 which modifies rc.local. Specifically for this project you need to:
+  - sudo nano /etc/rc.local
+  - before the line `exit 0` paste:
+  
+  `sudo bash -c 'python3 /home/pi/doorbell/doorbell.py > /home/pi/doorbell/doorbell.log 2>&1' &`
+  - save and reboot. The script should be running.
+  
 
 ## bluetooth
 
@@ -69,16 +78,22 @@ The aim is to sniff the package sent to the boom to find its handle, value and d
  - handle: for a boom3 the handle will be '0x0003'. For other BLE speakers or even the megaboom this may be different and you may need to sniff packets like in the post either with Packetlogger or Wireshark (I used wireshark for android).
  - value: this is just an address appended with '01' where the address is the bluetooth address of the phone which has the ultimate ears app installed. find BT address [for ios](https://www.techwalla.com/articles/how-do-i-find-a-bluetooth-address) or [for android](https://www.technipages.com/android-find-bluetooth-address)
  - device hex: if you manually connect the pi to the boom3, and run `hcitool con` you can see a list of devices connected to the pi. Only connecting the boom3 should show one hex address corresponding to the boom3
+ 
+You should now replace the variables `boomHex`, `boomValue`, `boomHandle` in the `doorbell.py` script.
 
 ## wiring
 
 setup the wiring like in the above photo and schema.
-[this link](https://forum.core-electronics.com.au/t/433mhz-remote-control-by-hacking-a-wireless-doorbell-arduino-and-raspberry-pi/7799) has further instructions on how to wire the receiver and what the other receiver pins do.
+[this link](https://forum.core-electronics.com.au/t/433mhz-remote-control-by-hacking-a-wireless-doorbell-arduino-and-raspberry-pi/7799) has further instructions on how to wire the receiver and what the other receiver pins do. I've added an external pull down resistor on the yellow breadbaord so that there is no high voltage produced from the floating state in the input wire (orange). This stops the doorbell from playing randomly. Aparently the internal pull down resistor in the rasp pi is not working well enough (possibly resistance too low or not grounded properly). 
+
+
 The boom3 should be connected once manually and you can turn it off before running the script. Also when the doorbell is pressed the result is to play a tune from the doorbell's list of tunes then play the meme through the speaker. You can select a tune that is short (3 knock sound) so to not play over the meme. You can select different sounds by holding the small black button on the transmitter. 
 
 ## run
 
-open the 'doorbell.py' script in thonny and run. Or use command
+If using the run on boot instruction in "install" section, you only need to turn the pi on to run the script and turn the pi off to stop the script.
+
+Otherwise open the 'doorbell.py' script in thonny and run. Or use command
 `python3 Desktop/doorbell.py`
 
 Then test by pushing the doorbell
