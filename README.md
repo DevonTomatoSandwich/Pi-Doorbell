@@ -65,6 +65,7 @@ The pi is powered by 5V from the wall, the reciever is powered by the 3V3 pin on
   - before the line `exit 0` paste:
   
   `sudo bash -c 'python3 /home/pi/doorbell/doorbell.py > /home/pi/doorbell/doorbell.log 2>&1' &`
+  - change read and write permissions to the .log file: `sudo chmod guo+rw doorbell/doorbell.log`
   - save and reboot. The script should be running.
   
 
@@ -99,7 +100,7 @@ If using the run on boot instruction in "install" section, you can:
 
 Otherwise (if not running on boot) you can:
 - open the 'doorbell.py' script in thonny and run. Or use command `python3 Desktop/doorbell.py`
-- stop the script with `pkill -9 -f Desktop/doorbell.py`
+- stop the script with `sudo pkill -9 -f doorbell/doorbell.py`
 
 # Issues
 - [ ] Sometimes (~20% of the time) these errors occur:
@@ -109,3 +110,4 @@ Otherwise (if not running on boot) you can:
    currently tring to find a solution to this.
 - [x] Wiring is ugly (lots of wires and clips). Placing the receiver on a breadboad would look better and reduce the chance of clips touching (or bad crimping) resulting in a short circuit. The problem with placing the reciever on the breadboard is that it loses its default bell that is provided with the doorbells circuit board. I would prefer to keep this incase the bluetooth component fails. Marking as complete for now
 - [x] Sometimes pi receives input randomly, ~~possibly due to cross talk in wires~~. I found out that this is not interference but fluctuation between high and low which is typical of an input pin even if using the pins internal pull down resistor setting. Seting up an external pull down resistor with R = 10kΩ grounds the state to 0V when there is no transmission recieved. 
+- [ ] logging with rc.local only shows stderr. Could be fixed with systemd
