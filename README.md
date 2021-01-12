@@ -61,7 +61,7 @@ The pi is powered by 5V from the wall, the reciever is powered by the 3V3 pin on
 - In the existing /home/pi folder of the pi insert the 'doorbell' folder found in the repo.
 - (optional) add other wav files of your choosing ensuring to match the file names with the memes array at the top of 'doorbell.py'.
 - make the script run on boot by following [this link](https://learn.sparkfun.com/tutorials/how-to-run-a-raspberry-pi-program-on-startup/all) specifically method 1 which modifies rc.local. Specifically for this project you need to:
-  - sudo nano /etc/rc.local
+  - `sudo nano /etc/rc.local`
   - before the line `exit 0` paste:
   
   `sudo bash -c 'python3 /home/pi/doorbell/doorbell.py > /home/pi/doorbell/doorbell.log 2>&1' &`
@@ -91,15 +91,15 @@ The boom3 should be connected once manually and you can turn it off before runni
 
 ## run
 
-If using the run on boot instruction in "install" section, you only need to turn the pi on to run the script and turn the pi off to stop the script.
+If using the run on boot instruction in "install" section, you can:
+- turn the pi on to run the script
+- test by pushing the doorbell transmitter
+- check logs with `cat doorbell/doorbell.log`
+- turn the pi off to stop the script
 
-Otherwise open the 'doorbell.py' script in thonny and run. Or use command
-`python3 Desktop/doorbell.py`
-
-Then test by pushing the doorbell
-
-stop the script with
-`pkill -9 -f Desktop/doorbell.py`
+Otherwise (if not running on boot) you can:
+- open the 'doorbell.py' script in thonny and run. Or use command `python3 Desktop/doorbell.py`
+- stop the script with `pkill -9 -f Desktop/doorbell.py`
 
 # Issues
 - [ ] Sometimes (~20% of the time) these errors occur:
