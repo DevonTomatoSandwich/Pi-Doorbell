@@ -84,7 +84,7 @@ You should now replace the variables `boomHex`, `boomValue`, `boomHandle` in the
 ## wiring
 
 setup the wiring like in the above photo and schema.
-[this link](https://forum.core-electronics.com.au/t/433mhz-remote-control-by-hacking-a-wireless-doorbell-arduino-and-raspberry-pi/7799) has further instructions on how to wire the receiver and what the other receiver pins do. I've added an external pull down resistor on the yellow breadbaord so that there is no high voltage produced from the floating state in the input wire (orange). This stops the doorbell from playing randomly. Aparently the internal pull down resistor in the rasp pi is not working well enough (possibly resistance too low or not grounded properly). 
+[this link](https://forum.core-electronics.com.au/t/433mhz-remote-control-by-hacking-a-wireless-doorbell-arduino-and-raspberry-pi/7799) has further instructions on how to wire the receiver and what the other receiver pins do. I've added an external pull down resistor on the breadbaord so that there is no high voltage produced from the floating state in the input wire (orange). This stops the doorbell from playing randomly. Aparently both an internal and external pull down resistor is needed to stop fluctuation.  
 
 
 The boom3 should be connected once manually and you can turn it off before running the script. Also when the doorbell is pressed the result is to play a tune from the doorbell's list of tunes then play the meme through the speaker. You can select a tune that is short (3 knock sound) so to not play over the meme. You can select different sounds by holding the small black button on the transmitter. 
