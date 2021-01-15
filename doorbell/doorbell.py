@@ -1,4 +1,4 @@
-import time # Time
+import time, datetime # Time
 # Bluetooth
 import os, sys # to get current directory for reading a meme's .wav
 import subprocess
@@ -31,7 +31,7 @@ def main():
                 if not isHighLast: # changed to high
                     isHighLast = True
                     speaker_play()
-                time.sleep(3)
+                time.sleep(2)
             else:
                 if isHighLast:     # changed to low
                     isHighLast = False
@@ -44,14 +44,16 @@ def main():
 
 # turns on boom, connects to pi, then plays random meme
 def speaker_play():
+    print('Triggered at', datetime.datetime.now().strftime('%d/%m/%Y, %H:%M:%S.%f'))
     randIndex = rd.randint(0, len(memes)-1)
     
     if speaker_on():
         if speaker_connect():
             filePath = os.path.join(sys.path[0], memes[randIndex])
-            onCommand = 'aplay -D bluealsa:DEV=' + boomHex + ',PROFILE=a2dp ' + filePath
             try:
-                subprocess.check_output(onCommand, shell=True)
+                print('  Playing', memes[randIndex], end=' ... ')
+                subprocess.check_output('sudo paplay '+ filePath, shell=True)
+                print('Done')
             except Exception as e:
                 print('WARNING: sound not played! Error is:', str(e))
 
@@ -61,7 +63,7 @@ def speaker_on():
         onCommand = 'sudo gatttool -i hci0 -b ' + boomHex + ' --char-write-req -a '\
         + boomHandle + ' -n ' + boomValue
         subprocess.check_output(onCommand, shell=True)
-        print('Speaker turned on!')
+        print('  Speaker turned on!')
         return True
     except Exception as e:
         print('WARNING: Speaker not turned on! Error is:', str(e))
@@ -78,7 +80,7 @@ def speaker_connect():
         # check devices connected to rpi
         for l in subprocess.getoutput('hcitool con').split('\n\t> '):
             if boomHex in l.split(' '):
-                print('Speaker connected!')
+                print('  Speaker connected!')
                 return True
         iAttempt += 1 # if this attempt failed
         print(' not connected after', iAttempt, 'attempt(s).')
