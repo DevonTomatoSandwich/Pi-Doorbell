@@ -55,9 +55,17 @@ The pi is powered by 5V from the wall, the reciever is powered by the 3V3 pin on
 - In the existing /home/pi folder of the pi insert the 'doorbell' folder found in the repo.
 - (optional) add other wav files of your choosing ensuring to match the file names with the memes array at the top of 'doorbell.py'.
 - (optional) make the script run on boot by following [this link](https://learn.sparkfun.com/tutorials/how-to-run-a-raspberry-pi-program-on-startup/all) specifically method 2 for autostart. For this project you need to:
-  - copy the contents of doorbell.desktop (which is in the top directory of this project)
   - `sudo nano /home/pi/.config/autostart/doorbell.desktop`
-  
+  - then paste the contents below
+  ```  
+  [Desktop Entry]
+  Type=Application
+  Name=Doorbell
+  Exec=xterm -hold -e '/usr/bin/python3 /home/pi/doorbell/doorbell.py'
+
+  Name[en_US]=doorbell.desktop
+  ```  
+  - ctrl + x, y, enter 
   
 ## bluetooth
 
@@ -99,10 +107,5 @@ Alternatively if not running on boot you can open the 'doorbell.py' script in th
 
 # Issues
 - [ ] Run instructions are quite complicated and should not need the GUI to read logs. This could potentially be fixed with systemd however I'm unsure how to create the .service files needed.
-- [x] Sometimes (~20% of the time) these errors occur:
-   - `ALSA lib bluealsa-pcm.c:763:(_snd_pcm_bluealsa_open) Couldn't get BlueALSA PCM: PCM not found`
-   - `connect: Device or resource busy (16)`
-   Alsa has been purged so this error does not occur
 - [x] Wiring is ugly (lots of wires and clips). Placing the receiver on a breadboad would look better and reduce the chance of clips touching (or bad crimping) resulting in a short circuit. The problem with placing the reciever on the breadboard is that it loses its default bell that is provided with the doorbells circuit board. I would prefer to keep this incase the bluetooth component fails. Marking as complete for now
 - [x] Sometimes pi receives input randomly, ~~possibly due to cross talk in wires~~. I found out that this is not interference but fluctuation between high and low which is typical of an input pin even if using the pins internal pull down resistor setting. Seting up an external pull down resistor with R = 10kΩ grounds the state to 0V when there is no transmission recieved. 
-- [x] logging with rc.local only shows stderr. Could be fixed with systemd. Now using autostart see "install"
