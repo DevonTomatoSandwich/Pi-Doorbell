@@ -1,6 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Doorbell
-Exec=xterm -hold -e '/usr/bin/python3 /home/pi/doorbell/doorbell.py'
-
-Name[en_US]=doorbell.desktop
