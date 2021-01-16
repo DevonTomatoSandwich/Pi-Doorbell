@@ -2,6 +2,10 @@
 
 Plays memes whenever someone rings the doorbell !
 
+```diff
+- IMPORTANT project isn't fully complete. See issues at bottom
+```
+
 A raspberry pi intercepts the receiver signal from a doorbell transmission
 and, using python, will play a greeting sound (a meme) through a BLE (Bluetooth Low Energy) Speaker.
 
