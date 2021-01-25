@@ -14,17 +14,11 @@ and, using python, will play a greeting sound (a meme) through a BLE (Bluetooth 
 - BLE Speaker: specifically Ultimate Ears Boom3 (~200AUD)
 - Doorbell: HPM Wireless Doorbell Kit model D642/01 (~10AUD)
 - Raspberry Pi: model 3B+ with 5V charger and noobs (~100AUD)
-- Electrical components: (~15AUD)
-  - 5 gpio leads
-    - x1 alligator to male
-    - x2 alligator to female
-    - x2 female to male
-  - bread board
-  - resistor 10kΩ
+- 3 gpio leads, each with alligator clip to female end (~10AUD)
 
-Total cost is ~325AUD
+Total cost is ~320AUD
 
-Luckily I have a boom3 and pi so this project cost me $25
+Luckily I have a boom3 and pi so this project cost me $20
 
 # Wiring Pics
 Picture below shows the wiring of the pi to the receiver
