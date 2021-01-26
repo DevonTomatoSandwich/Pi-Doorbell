@@ -52,14 +52,14 @@ The pi is powered by 5V from the wall, the reciever is powered by the 3V3 pin on
 
 - Download this repo as a zip.
 - In the existing /home/pi folder of your pi insert the 'doorbell' folder found in the repo.
-- ensure file permissions are ok on scripts and logs
+- Ensure file permissions are ok on scripts and logs
   - doorbell.py and play.sh scripts must be executable so run  
     `chmod a+x doorbell/doorbell.py`  
     `chmod a+x doorbell/play.sh`
   - also the log file must be writeable so run  
     `chmod a+w doorbell/doorbell.log`
 - (optional) add other wav files of your choosing ensuring to match the file names with the memes array at the top of 'doorbell.py'.
-- (optional) make the script run on boot using systemd. For this project you need to:
+- Setup the .py script to run on boot using systemd. For this project you need to:
   - run the below command in a terminal  
     `sudo nano /etc/systemd/user/doorbell.service`  
     Note that the user directory is important as pulse audio only plays from a user and not a root user.
@@ -87,12 +87,6 @@ The pi is powered by 5V from the wall, the reciever is powered by the 3V3 pin on
     and run the follwing commands  
     `sudo systemctl daemon-reload`  
     `systemctl --user enable doorbell.service`
-  - to start the service either  
-    run command `systemctl --user start doorbell.service`  
-    or reboot pi `sudo reboot -h now`
-  - to stop the service either  
-    run command `systemctl --user stop doorbell.service`  
-    or turn off the pi `sudo shutdown -h now`
   
 ## bluetooth
 
@@ -132,23 +126,27 @@ You can select different sounds by holding the small black button on the transmi
 
 ## run
 
-If using the run on boot instruction in "install" section, you can:
-- (optional) loggin through SSH and disable VNC with `sudo raspi-config` > Interface Options > VNC > No > Ok > Finish
-- turn boom on
-- reboot with `sudo reboot -h now` and wait till the connecting light appears on the boom
-- test by pushing the doorbell transmitter
-- (optional) Now, you can turn the speaker off and repeat the previous step to test that the script works when the speaker is off.
-
-From here the doorbell should work continuously but if there is an error you can check the logs by: 
-  - loggin through SSH and enable vnc with `sudo raspi-config` > Interface Options > VNC > Yes > Ok > Finish
-  - open VNC and you will see an open "XTerm" terminal with the logs in it.
-  - If the font is too small you can copy contents in Xterm by highlighting the text (this automatically copies it) then pasting the contents into text editor with the middle mouse button
+You can turn off VNC to reduce power. This is optional but can be done by:  
+logging in through SSH and disable VNC with `sudo raspi-config` > Interface Options > VNC > No > Ok > Finish  
   
-At anytime you can stop the script by running `sudo pkill -9 -f doorbell/doorbell.py`. Or just shutdown the pi.
-
-Alternatively if not running on boot you can open the 'doorbell.py' script in thonny and press run. Or use command `python3 Desktop/doorbell.py` in SSH or GUI terminal. These options do not work continuously as the SSH session or VNC session may cut out when your computer is asleep.
+If running on boot you can start the service by rebooting with  
+`sudo reboot -h now`  
+Alternatively if not running on boot you can start by running  
+`systemctl --user start doorbell.service`  
+Either way wait approximately 10 seconds after after service starts running before testing  
+  
+Test the doorbell by pushing the doorbell transmitter  
+  
+From here the doorbell should work continuously but if there is an error you can check the logs by:  
+- log into SSH terminal and run `cat doorbell/doorbell.log`  
+  
+To temporarily stop the service, either:  
+ - run command `systemctl --user stop doorbell.service`  
+ - or turn off the pi `sudo shutdown -h now`  
+  
+To permanently stop the service, run  
+`systemctl --user stop doorbell.service`  
+`systemctl --user disable doorbell.service`  
 
 # Issues
-- [ ] Run instructions are quite complicated and should not need the GUI to read logs. This could potentially be fixed with systemd however I'm unsure how to create the .service files needed.
-- [x] Wiring is ugly (lots of wires and clips). Placing the receiver on a breadboad would look better and reduce the chance of clips touching (or bad crimping) resulting in a short circuit. The problem with placing the reciever on the breadboard is that it loses its default bell that is provided with the doorbells circuit board. I would prefer to keep this incase the bluetooth component fails. Marking as complete for now
-- [x] Sometimes pi receives input randomly, ~~possibly due to cross talk in wires~~. I found out that this is not interference but fluctuation between high and low which is typical of an input pin even if using the pins internal pull down resistor setting. Seting up an external pull down resistor with R = 10kΩ grounds the state to 0V when there is no transmission recieved. 
+- ~~Bluetooth isn't always reliable and may not connect. See warning at start of readme.~~ However even if boom never connects the receiver will always play from its built in speaker so marking as complete
