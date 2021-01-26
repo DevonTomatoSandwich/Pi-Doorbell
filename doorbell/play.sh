@@ -59,7 +59,8 @@ function connectBT {
     attempts=$1
     while [ $attempts -gt 0 ]
     do
-        echo "connecting with $1 attempts left"
+        echo "connecting with $attempts attempts left"
+        $BTCTL -- pair "$BOOM_HEX"
         $BTCTL -- connect "$BOOM_HEX"
         $BTCTL -- quit
         
